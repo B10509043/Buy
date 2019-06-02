@@ -1,0 +1,109 @@
+@charset "utf-8";
+body{
+    background-color: #21618C;
+}
+.box{
+    margin-left: auto;
+    margin-right:auto;
+    margin-top:50px;
+    padding-top:30px;
+    width: 40%;
+    height: 700px;
+    background-color: white;
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+}
+.box hr{
+    margin-top:0px;
+    margin-bottom: 20px;
+    width: 80%;
+}
+.line{
+    text-align: center;
+}
+.line input[type="button"]{
+    margin-left: 20px;
+    font-family: 微軟正黑體;
+    padding:5px 5px;
+    width: 120px;
+    height: 40px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    color: white;
+    background-color: #21618C;
+}
+.line input[type="button"]:hover{
+    background-color: rgb(26, 74, 105);
+}
+.title{
+    font-family:微軟正黑體;  
+    font-size:18px; 
+    text-align: left;
+    color: #424949;
+}
+#signuptitle{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+#signuptext{
+    font-family:微軟正黑體; 
+    font-weight:bold; 
+    font-size:24px; 
+    color: #424949;
+}
+.box input[type="text"], .box input[type="password"]{
+    padding:5px 5px;
+    background-color: #E5E7E9;
+    border: 0;
+    font-family: 微軟正黑體;
+    margin:10px 10px;
+    width: 540px;
+    height: 35px;
+    font-size: 16px;
+    
+}
+.box input[type="submit"]{
+    font-family: 微軟正黑體;
+    padding:5px 5px;
+    width: 360px;
+    height: 40px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    color: white;
+    background-color: #21618C;
+}
+.box input[type="submit"]:hover{
+    background-color: rgb(26, 74, 105);
+}
+
+#link{
+    font-family: 微軟正黑體;
+    font-size: 18px;
+    color:#21618C;
+    text-decoration: none;
+}
+#link:hover{
+    color: rgb(26, 74, 105);
+}
+
+.picturebox{
+    
+    margin-left: 340px;
+    width:100px;
+    height:100px;
+    overflow: hidden;
+    
+}
+.picturebox img{
+    
+    border-radius:50%;
+    object-fit: cover;
+    width:80px;
+    height:80px;
+    margin:10px 10px;
+    
+    
+}

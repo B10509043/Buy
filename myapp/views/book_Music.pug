@@ -1,0 +1,149 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title Tech2Buy
+    link(href='stylesheets/clothing.css', rel='stylesheet', type='text/css')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js')
+    script.
+      $(document).ready(function() {
+      //  左選單
+        $(".sub").slideUp(0);
+        for (i = 0; i < $(".main").length; i++) {
+        //  點選按扭時收合或展開選單
+          $(".main:eq(" + i + ")").on("click", {id: i}, function(e) {
+            n = e.data.id;
+            $(".sub:eq(" + n + ")").slideToggle();
+            $(".sub:not(:eq(" + n + "))").slideUp();
+          });
+        };
+        $(".main:eq(2)").trigger("click");
+        //篩選按鈕
+        $(".sort_button").click(function(){
+        $(".sort_button").css("background-color","white"); //全部變白色
+        $(this).css("background-color","#5DADE2");  //案的那個變色
+        });
+        for(i = 0; i <$('.productpicture').length; i++){
+          resetp(i);
+        }
+        $('#word').keypress(function(event) {
+          if (event.keyCode === 13) {
+            var query = $(this).val();
+            var sort = $('#sort').val();
+            
+            window.location = '/find?query=' + query + '&sort=' + sort;
+          }
+        });
+      });
+      function resetp(val){
+        var mtop = (180 - $(".productpicture:eq(" + i + ")").innerHeight()) / 2
+        var mleft = (230 - $(".productpicture:eq(" + i + ")").innerWidth()) / 2
+      
+        var styles = {'margin-top':mtop, 'margin-left':mleft};
+        $(".productpicture:eq(" + i + ")").css(styles);
+      };
+  body
+    input#sort(value=sort hidden)
+    #wrap
+      #top
+        #topleft
+          div(style="float:inherit; margin-left:50px")
+            img(src='/images/logo_white.png' width='40px' height='40px' style='margin-top:5px')
+          div
+            a(href='/', style='margin-left:-40px; text-decoration: none; font-size: 20px; font-family: Arial, Helvetica, sans-serif; color: white;line-height: 50px') Tech2Buy
+        #topmiddle
+        
+        #topmiddleleft
+          a(href='/sell')
+            input.sellbutton(type='button', value='賣東西', align='absmiddle', style='width:80px')
+        #topright
+          a(href='/login', target='_self')
+            if(user === undefined)
+              img(src='images/membericon_white.png', width='40', height='40',style='margin-top:5px; margin-right:5px')
+            else
+              .picturebox(style='float:right')
+                img(src=user.userfileNames[0])
+      #down
+        #downleft
+          #menu
+            .sidelist
+              .main  服飾配件 
+              .sub
+                a(href='/clothing_Femaleclothing')
+                  .sidelistitem 女裝女鞋
+                a(href='/clothing_Maleclothing')
+                  .sidelistitem 男裝男鞋
+                a(href='/clothing_Decorations')
+                  .sidelistitem 飾品配件
+            .sidelist
+              .main 電子產品
+              .sub
+                a(href='/elctronic_Photographing')
+                  .sidelistitem 攝影用品
+                a(href='/elctronic_Mobile')
+                  .sidelistitem 行動裝置
+                a(href='/elctronic_Computer')
+                  .sidelistitem 電腦周邊
+            .sidelist
+              .main 書籍用品
+              .sub
+                a(href='/book_Textbook')
+                  .sidelistitem 教科書籍
+                a(href='/book_Otherbook')
+                  .sidelistitem 課外書籍
+                a(href='/book_Music')
+                  .sidelistitem 音樂用品
+                a(href='/book_Disk')
+                  .sidelistitem 影視光碟
+            .sidelist
+              .main 居家生活
+              .sub
+                a(href='/life_Daily')
+                  .sidelistitem 日常用品
+                a(href='/life_food')
+                  .sidelistitem 飲食生活
+            .sidelist
+              .main 美妝保養
+              .sub
+                a(href='/makeup_makeup')
+                  .sidelistitem 美妝保養
+            .sidelist
+              .main 租屋專區
+              .sub
+                a(href='/houserent_houserent')
+                  .sidelistitem 租屋專區
+            .sidelist
+              .main 其他雜項
+              .sub
+                a(href='/others_others')
+                  .sidelistitem 其他雜項
+        #downright
+          #sort_selection
+            label(style='margin: 10px') 關鍵字搜尋
+            input(id='word',type='text', style='width: 300px; border:none; height: 26px; padding-top: 4px;font-family: 微軟正黑體', placeholder='輸入關鍵字')
+          #catagorynow(style='padding-left:12px')
+            label(style='font-family: 微軟正黑體; font-size:20px') 音樂用品賣場
+          .postarea(style='padding: 5px')
+             each product in products
+              a(href='/products/' + product._id)
+                .post(style='cursor:pointer')
+                  .postuserinfo
+                    
+                    div(style='float:left; margin:5px ;margin-right: 10px; width:40px; height:40px; overflow: hidden;')
+                      img.postuserpic(id = product.user._id,src=product.user.userfileNames[0], width='40', height='40', style="border-radius:50%; object-fit: cover;")
+                    div
+                      div
+                        label(style='font-family:微軟正黑體 ; font-weight: bold; font-size: 16px') #{product.user.username}
+                      label(style='font-family:微軟正黑體 ; font-weight: bold; font-size: 14px ; color: #566573') #{product.createdate}
+                  .postiteminfo(style='padding:10px')
+                    div(style='width:230px; height:180px')
+                      img.productpicture(src=product.fileNames[0], style = 'max-height:180px; max-width:230px; width:auto; height:auto')
+                    
+                    br
+                    label(style='font-family:微軟正黑體 ; font-weight: bold; font-size: 20px') 商品名稱:#{product.productsname}
+                    br
+                    label(style='font-family:微軟正黑體 ;  font-size: 18px') NT #{product.price}
+                    br
+                    label(style='font-family:微軟正黑體 ;  font-size: 16px ;color: #566573') 商品狀態:#{product.type}
+                    br
+                    label(style='font-family:微軟正黑體 ;  font-size: 16px ;color: #566573') 商品資訊:#{product.iteminfotextarea}

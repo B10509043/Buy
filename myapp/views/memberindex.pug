@@ -1,0 +1,149 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title 會員中心
+    link(href='stylesheets/member.css', rel='stylesheet', type='text/css')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js')
+    script.
+      $(document).ready(function () {
+        
+        $('#user-form').submit(function(e) {
+           var formData = new FormData(this);
+           console.log(formData.get('username'))
+          	
+          $.ajax({
+            method: 'POST', 
+            url: '/api/updateuser',
+            contentType: false,
+            processData: false,
+            data: formData,
+            success: function() {
+              window.location = '/';
+            },
+            error: function(jqXHR, textStatus, error) {
+              $('#error-message').html(error);
+            }
+          });
+
+          
+          e.preventDefault();
+        });
+        
+        $("#Pictureinputbutton").click(function(){
+            $("#PictureInput").trigger("click");
+        });
+        
+        $("#PictureInput").change(function(){
+          $(".picturebox_change").html("");
+          readURL(this);
+        });
+        
+        var flag = false;
+        $('#passwordchange').click(function(){
+          if(flag == false){
+            $('#password').show();
+            $('#passwordconfirm').show();
+            $('#formbutton').css('margin-top','225px');
+            $('#passwordchange').attr('value','取消');
+            flag = true;
+          }else{
+            $('#password').hide();
+            $('#passwordconfirm').hide();
+            $('#formbutton').css('margin-top','135px');
+            $('#passwordchange').attr('value','變更');
+            flag = false;
+          }
+          
+        });
+      });
+      
+      function readURL(input){
+        if(input.files && input.files[0]){
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            var img = $("<img class='uploadpictures', style='margin: 10px 10px;'>").attr('src', e.target.result);
+            $(".picturebox_change").append(img);
+          }
+          reader.readAsDataURL(input.files[0]);
+        };
+      };
+      
+  body
+    #upsection
+      .top(style='width:80%; text-align: left; padding-left: 22px')
+        a(href='/')
+          label(style='font-size: 32px; cursor: pointer') Tech2Buy會員中心
+      .top(style='width:16%; text-align: right; padding-right: 22px')
+         a(href='/logout')
+          label#logoutbutton(style='cursor:pointer') 登出
+    #downsection
+      #downleft
+        #userinfo(style='height:21%')
+          .picturebox
+            img(src=user.userfileNames[0], style='margin: 10px 10px;')
+          .usernamebox
+            label #{user.username}
+        #optionarea
+          a(href='/memberindex')
+            .optionline(style='cursor:pointer')
+              div(style='float:left')
+                img(src='../images/icons8-user-100.png', width='22px', height='22px')
+              div(style='line-height:23px')
+                label(style='margin-left:10px; cursor:pointer') 我的帳號
+          a(href='/membermarket')
+            .optionline(style='cursor:pointer')
+              div(style='float:left')
+                img(src='../images/icons8-shopping-cart-64.png', width='22px', height='22px')
+              div(style='line-height:23px')
+                label(style='margin-left:10px; cursor:pointer') 我的賣場
+          a(href='/memberlist')
+            .optionline(style='cursor:pointer')
+              div(style='float:left')
+                img(src='../images/icons8-checklist-32.png', width='22px', height='22px')
+              div(style='line-height:23px')
+                label(style='margin-left:10px; cursor:pointer') 我的收藏
+          a(href='/membernotification')
+            .optionline(style='cursor:pointer')
+              div(style='float:left')
+                img(src='../images/icons8-bell-90.png', width='22px', height='22px')
+              div(style='line-height:23px')
+                label(style='margin-left:10px; cursor:pointer') 通知總覽
+          
+         
+      #downright
+        form#user-form
+          #downrighttitle
+            | 我的帳號
+          hr(style='margin:-10px 20px')
+          #downrightform(style='margin:20px 20px')
+            #formtext(style='width:70%; float:left; ')
+              .formgroup
+                span 電子信箱
+                label(style="margin-left:30px") #{user.fullemail}
+              .formgroup
+                span 用戶名
+                input(type='text',name='username', style='width:60%; margin-left:50px; margin-top:45px;' value= user.username)
+                input.iteminfo_input(type='text',name='userId' value= user._id,hidden='hidden')
+              .formgroup
+                span 電話號碼
+                input(type='text',name='phonenumber', style='width:60%; margin-left:30px; margin-top:90px;' value= user.phonenumber)
+              #passwordsection(style='font-size:20px; height:15px; line-height: 45px;')
+                span 修改密碼
+                input#passwordchange(type='button', value='變更' style='margin-left:30px; margin-top:135px')
+              .formgroup#password(hidden)
+                span 新密碼
+                input#passwordinput(type='password',name='password' ,style='width:60%; margin-left:50px; margin-top:180px;', value = user.password)
+              .formgroup#passwordconfirm(hidden)
+                span 密碼確認
+                input#passwordconfirm(type='password',name='againpass', style='width:60%; margin-left:30px; margin-top:225px;')
+               
+          hr(style='width:2px; height:250px; float:left; margin-left:-100px; margin-top:20px; color:#717D7E')
+          #formpic(style='height:100%; width:30%; float:left; ')
+            .picturebox_change(style='margin-left:50px; margin-top:70px')
+              img.uploadpictures(src=user.userfileNames[0])
+            input#PictureInput(name='pic',type='file', accept='image/gif, image/jpeg, image/png', hidden='hidden')
+            input#Pictureinputbutton(type='button', value='修改圖示' style='margin-left:-106px; margin-top:210px;')
+          input#formbutton(type='submit', value='儲存' style='margin-top: 135px;')
+            
+            

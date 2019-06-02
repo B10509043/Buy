@@ -1,0 +1,222 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title sell
+    link(href='/stylesheets/sell.css', rel='stylesheet', type='text/css')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js')
+    script.
+      $(document).ready(function () {
+        for(i = 0; i < 4 ; i++){
+          resetp(i);
+        }
+        
+        $('#sell-form').submit(function(e) {
+           var formData = new FormData(this);
+           console.log(formData.get('productsname'))
+          	
+          $.ajax({
+            method: 'POST', 
+            url: '/api/updateproduct',
+            contentType: false,
+            processData: false,
+            data: formData,
+            success: function() {
+              window.location = '/';
+            },
+            error: function(jqXHR, textStatus, error) {
+              $('#error-message').html(error);
+            }
+          });
+
+          
+          e.preventDefault();
+        });
+
+
+        $("#imgs0").click(function(){
+          $("#PictureInput0").trigger("click");
+          
+        });
+        $("#PictureInput0").change(function(){
+         // 清除預覽
+          readURL(this,0);
+          
+        });
+
+        
+
+        /////////////////////////////////////
+        $("#imgs1").click(function(){
+        $("#PictureInput1").trigger("click");
+        });
+        $("#PictureInput1").change(function(){
+         // 清除預覽
+        readURL(this,1);
+        });
+        
+        ////////////////////////////////
+        $("#imgs2").click(function(){
+        $("#PictureInput2").trigger("click");
+        });
+        $("#PictureInput2").change(function(){
+         // 清除預覽
+        readURL(this,2);
+        });
+        
+        /////////////////////////////////
+        $("#imgs3").click(function(){
+        $("#PictureInput3").trigger("click");
+        });
+        $("#PictureInput3").change(function(){
+         // 清除預覽
+        readURL(this,3);
+        });
+       
+        ///////////////////////////////////
+        $(".major").hide();
+        $("#itemcatagory").change(function(){
+        if($("#itemcatagory").find(":selected").val()=="教科書籍"){
+        $(".major").show();
+        }else{
+        $(".major").hide();
+        }
+        });
+      });
+      
+      
+      
+      function readURL(input,i){
+        if(input.files && input.files[0]){
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            $("#custom_picture_button" + i).attr('src',e.target.result);
+
+          }
+          reader.readAsDataURL(input.files[0]);
+          setTimeout("resetp(" + i + ")",50)
+        };
+        
+      }
+      function resetp(val){
+        var mtop = (200 - $("#custom_picture_button" + val).height()) / 2
+        var mleft = (200 - $("#custom_picture_button" + val).width()) / 2
+    
+        var styles = {'margin-top':mtop, 'margin-left':mleft};
+        $("#custom_picture_button" + val).css(styles);
+      };
+  body
+    #wrap
+      #top
+        #topleft
+          div(style="float:inherit; margin-left:50px")
+            img(src='/images/logo_white.png' width='40px' height='40px' style='margin-top:5px')
+          div
+            a(href='/', style='margin-left:-40px; text-decoration: none; font-size: 20px; font-family: Arial, Helvetica, sans-serif; color: white;line-height: 50px') Tech2Buy
+        #topmiddle
+         
+        #topmiddleleft
+          
+        #topright
+          a(href='/login', target='_self')
+            .picturebox(style='float:right')
+                img(src=product.user.userfileNames[0])
+        
+        #down
+          #formarea(style='padding:15px')
+            label(style='font-family:微軟正黑體; font-size: 20px; color:#1F618D; font-weight: bold') 選擇圖片
+            form#sell-form
+              input#PictureInput0(name='pic',type='file', accept='image/gif, image/jpeg, image/png', hidden='hidden')
+              input#PictureInput1(name='pic',type='file', accept='image/gif, image/jpeg, image/png', hidden='hidden')
+              input#PictureInput2(name='pic',type='file', accept='image/gif, image/jpeg, image/png', hidden='hidden')
+              input#PictureInput3(name='pic',type='file', accept='image/gif, image/jpeg, image/png', hidden='hidden')
+              #preview_PictureInput_imgs(style='width:100%; height: 200px')
+                #imgs0.imgs
+                  img.custom_picture_buttons(id ='custom_picture_button0', src=product.fileNames[0], alt='')
+                #imgs1.imgs
+                  img.custom_picture_buttons(id ='custom_picture_button1', src=product.fileNames[1], alt='')
+                #imgs2.imgs
+                  img.custom_picture_buttons(id ='custom_picture_button2', src=product.fileNames[2], alt='')
+                #imgs3.imgs
+                  img.custom_picture_buttons(id ='custom_picture_button3', src=product.fileNames[3], alt='')
+              br
+              hr
+              label(style='font-family:微軟正黑體; font-size: 20px; color:#1F618D; font-weight: bold') 商品資訊
+              br
+              br
+              
+              .iteminfoinput
+                .iteminfo_inputtitle(style='width:100px; float: left;')
+                  | 商品名稱
+                div
+                  input.iteminfo_input(type='text', name='productsname',title='輸入商品名稱', style='width:500px', placeholder='輸入商品名稱', value= product.productsname)
+                br
+                .iteminfo_inputtitle(style='width:100px; float: left;')
+                  | 商品價格
+                div
+                  span(style='font-family: 微軟正黑體') NT
+                  input.iteminfo_input(type='number', name='price', min='0', style='width:200px', placeholder='輸入商品價格', value = product.price)  
+                br
+                div(style='width:100px; float: left;')
+                  label.iteminfo_inputtitle 商品狀態
+                div
+                  input.iteminfo_input(type='radio', name='type', value='全新', checked='')
+                  | 全新
+                  input.iteminfo_input(type='radio', name='type', value='二手')
+                  | 二手
+                br
+                div(style='width:100px; float: left;')
+                  label.iteminfo_inputtitle 商品數量
+                div
+                  input.iteminfo_input(type='number', name='itemquantity', min='1', max='99', value = product.itemquantity)
+                br
+                div(style='width:100px; float: left;')
+                  label.iteminfo_inputtitle 商品類別
+                div
+                  select#itemcatagory.iteminfo_input(name='sort', style='width:100px')
+                    option(hidden='', selected='') 選擇類別
+                    option.listtitle(title='clothing', disabled='') 服飾配件
+                    option(name=sort, title='clothing_Femaleclothing', value='女裝女鞋') 女裝女鞋
+                    option(name=sort, title='clothing_Maleclothing', value='男裝男鞋') 男裝男鞋
+                    option(name=sort, title='clothing_Decorations', value='飾品配件') 飾品配件
+                    option.listtitle(value='elctronic', disabled='') 電子產品
+                    option(name=sort, title='elctronic_Photographing', value='攝影用品') 攝影用品
+                    option(name=sort, title='elctronic_Mobile', value='行動裝置') 行動裝置
+                    option(name=sort, title='elctronic_Computer', value='電腦周邊') 電腦周邊
+                    option.listtitle(value='book', disabled='') 書籍用品
+                    option(name=sort, title='book_Textbook', value='教科書籍') 教科書籍
+                    option(name=sort, title='book_Otherbook', value='課外書籍') 課外書籍
+                    option(name=sort, title='book_Music', value='音樂用品') 音樂用品
+                    option(name=sort, title='book_Disk', value='影視光碟') 影視光碟
+                    option.listtitle(value='life', disabled='') 居家生活
+                    option(name=sort, title='life_Daily', value='日常用品') 日常用品
+                    option(name=sort, title='life_food', value='飲食生活') 飲食生活
+                    option.listtitle(value='makeup', disabled='') 美妝保養
+                    option(name=sort, title='makeup_makeup',value='美妝保養') 美妝保養
+                    option.listtitle(value='houserent', disabled='') 租屋專區
+                    option(name=sort, title='houserent_houserent', value='租屋專區') 租屋專區
+                    option.listtitle(value='others', disabled='') 其他雜項
+                    option(name=sort, title='others_others', value='其他雜項') 其他雜項
+                  label.major(style='margin-left:10px; font-family: 微軟正黑體; font-size: 17px; line-height: 20px;') 科系
+                  select#majorselect.major(name='subtype', style='width:100px')
+                    option(hidden='', selected='') 選擇科系
+                    option(name=subtype, title='MIS', value='資訊管理系') 資訊管理系
+                    option(name=subtype, title='IM', value='工業管理系') 工業管理系
+                    option(name=subtype, title='BM', value='企業管理系') 企業管理系
+                    option(name=subtype, title='M', value='管理不分系') 管理不分系
+                    option(name=subtype, title='CD', value='商業設計系') 商業設計系
+                    option(name=subtype, title='ID', value='工業設計系') 工業設計系
+                    option(name=subtype, title='ME', value='機械工程系') 機械工程系
+                    option(name=subtype, title='EM', value='電子工程系') 電子工程系
+                    option(name=subtype, title='IE', value='資訊工程系') 資訊工程系
+                    option(name=subtype, title='AFL', value='應用外語系') 應用外語系
+                br
+                div(style='width:100px; float: left;')
+                  label.iteminfo_inputtitle 商品介紹
+                div
+                  textarea(name='iteminfotextarea', style='width:500px; height: 200px; resize: none') #{product.iteminfotextarea}
+                input.iteminfo_input(type='text',name='good_id' value= product._id,hidden='hidden')
+
+              hr
+              input#uploadbutton(type='submit', value='修改完成')
+            p#error-message

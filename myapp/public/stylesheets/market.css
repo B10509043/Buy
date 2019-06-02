@@ -1,0 +1,333 @@
+@charset "utf-8";
+html,body{
+	margin: 0;
+	height: 100%;
+	padding: 0;
+}
+#wrap {
+	height: 1500px;
+	background-color: #EBEDEF;
+}
+#wrap #top {
+    height: 50px;
+	background-color: #005792;
+	-moz-box-shadow:    3px 1px 5px 6px #ccc;
+  	-webkit-box-shadow: 3px 1px 5px 6px #ccc;
+  	box-shadow:         3px 1px 5px 6px #ccc;
+
+}
+#wrap #top #topleft {
+    float: left;
+    width: 15%;
+    height: 50px;
+    background-color: transparent;
+    text-align: center;
+	
+	
+}
+#wrap #top #topmiddle {
+    float: left;
+    width: 60%;
+    background-color: transparent;
+    height: 50px;
+    text-align: center;
+	line-height: 50px;
+}
+#wrap #top #topmiddleleft {
+	float: left;
+    width: 15%;
+    background-color: transparent;
+    height: 50px;
+    text-align: center;
+	line-height: 50px;
+}
+
+#wrap #top #topright {
+    float: right;
+    width: 10%;
+    background-color: transparent;
+    height: 50px;
+    text-align: right;
+}
+.sellbutton{
+	border-radius: 10px;
+	background-color: white;
+	border: none;
+	color: #408ab4;
+	text-align: center;
+	cursor: pointer;
+	height: 35px;
+}
+.sellbutton:hover{
+	background-color: #408ab4;
+	color:white;
+}
+
+#mercharea{
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    height:520px;
+	width:1063px;
+   
+}
+#merchphoto{
+    padding:10px;
+    float: left;
+    width: 430px;
+    height: 100%;
+}
+#imgslide{
+    background-color: #707B7C;
+    width: 410px;
+    height:500px;
+    position: relative;
+    user-select: none;
+}
+.slide_img{
+    position: absolute;
+    
+    z-index: -1;
+}
+
+.slide_img img{
+    max-height: 500px;
+    max-width: 410px;
+    height: auto;
+    width: auto;
+}
+#i1, #i2, #i3, #i4{
+    display: none;
+}
+    
+.pre, .nxt{
+    width: 12%;
+    height: 500px;
+    position: absolute;
+    top: 0;
+    background: rgba(88, 88, 88, .4);
+    z-index: 99;
+    transition: .45s;
+    cursor: pointer;
+}
+.pre:hover, .nxt:hover{
+    background: rgba(88, 88, 88, .6);
+}
+.pre{
+    left: 0;
+}
+.nxt{
+    right: 0;
+}
+.pre span, .nxt span {
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    border: solid 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.pre span {
+    border-color: transparent #fff transparent transparent;
+    right: 35%;
+}
+.nxt span {
+    border-color: transparent transparent transparent #fff;
+    left: 35%;
+}
+
+
+#imgslide .nav_slide{
+    width: 100%;
+    height: 12px;
+    position: absolute;
+    bottom:10%;
+    text-align: center;
+    z-index: 99;
+}
+.dots{
+    top: -5px;
+    width: 18px;
+    height: 18px;
+    margin: 0 4px;
+    position: relative;
+    border-radius: 50%;
+    display: inline-block;
+    background: rgba(0, 0, 0, .4);
+}
+.dots:hover{
+    background: rgba(0, 0, 0, .6);
+}
+#i1:checked ~ #slide_img0,
+#i2:checked ~ #slide_img1,
+#i3:checked ~ #slide_img2,
+#i4:checked ~ #slide_img3
+{
+    z-index: 9;
+}
+#i1:checked ~ .nav_slide #dot1,
+#i2:checked ~ .nav_slide #dot2,
+#i3:checked ~ .nav_slide #dot3,
+#i4:checked ~ .nav_slide #dot4{
+    background: white;
+}
+
+#merchinfo{
+    
+    margin-top: 10px;
+    float: left;
+    width: 55%;
+    height: 100%;
+}
+
+#seller{
+    
+    width: 50%;
+    height:50px;
+}
+
+#commentarea{
+    
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    height:250px;
+	width:70%;
+   
+
+}
+
+.postarea{
+    
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    
+    height:auto;
+	width:70%;
+   
+
+}
+.post{
+    
+	margin: 5px;
+	padding: 5px;
+	background-color: #E5E7E9;
+	font-family: 微軟正黑體;
+	height:400px;
+	width:250px;
+	display: inline-block;
+    color : black;
+    
+}
+
+.post:hover{
+	transition: box-shadow .25s;
+	box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.itemstatusline{
+    margin-top: 10px;
+    line-height: 30px;
+}
+.itemstatusline img{
+    
+    width: 30px;
+    height: 30px;
+}
+.itemstatusline label{
+    margin-left: 5px;
+    font-family:微軟正黑體;
+    font-weight: bold;
+    font-size: 20px;
+}
+.itemstatusline a{
+    color:#3498DB;
+    text-decoration: none;
+}
+.itemstatusline a:hover{
+    color: rgb(41, 123, 179);
+}
+
+#buttondiv input{
+    
+    margin: 10px 10px;
+    
+    width:150px;
+    height:50px;
+    font-family: 微軟正黑體;
+    font-size:20px;
+}
+#cartbutton{
+    color: #3498DB;
+    border: 1px solid #3498DB;
+}
+#cartbutton:hover{
+    background-color: rgb(197, 199, 201);
+}
+#purchasebutton{
+    border:none;
+    background-color: #3498DB;
+    color:white;
+}
+#purchasebutton:hover{
+    background-color: rgb(46, 139, 201);
+}
+#commentform input{
+    font-family: 微軟正黑體;
+    font-size: 18px;
+    border: none;
+    text-align: center;
+    width: 80px;
+    height:40px;
+    background-color: #005792;
+    color:white;
+}
+#commentform input:hover{
+    background-color:rgb(34, 100, 145)
+}
+#commentpostsection{
+    
+    margin-top: 520px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    height:500px;
+	width:96%;
+   
+}
+
+
+.picturebox{
+    float: left;
+    width:40px;
+    height:40px;
+    overflow: hidden;
+	margin-top:5px;
+	margin-right:5px; 
+}
+.picturebox img{
+    border-radius:50%;
+    object-fit: cover;
+    width:40px;
+    height:40px;
+    
+}
+#contactbutton{
+    float:right; 
+    width:100px; 
+    height: 40px; 
+    border:none;
+    background-color: #3498db;
+    color:white;
+    border-radius: 10px
+    
+}
+#contactbutton:hover{
+    background-color: rgb(46, 139, 201);
+}

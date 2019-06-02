@@ -1,0 +1,136 @@
+doctype html
+html
+	head
+		title 會員註冊
+		link(href='stylesheets/register.css', rel='stylesheet', type='text/css')
+		meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js')
+		script.
+			$(document).ready(function() {
+				$("#vbutton").click(function(){
+					if($('#emailinput')==""){
+						alert('請輸入電子信箱')
+					}else{
+						$("#Vline").show();
+						$(".box").css('height','800px');
+
+						var email = $('input[name=email]').val() + '@mail.ntust.edu.tw';
+
+						$.ajax({
+							url: '/api/send',
+							method: 'post',
+							data: { email },
+							success: function(data) {
+								console.log(data.verificationCode);
+								$('#verification-code').val(data.verificationCode);
+							}
+						});
+					}
+				});
+				$("#vresend").click(function(){
+					if($('#emailinput').val()==""){
+						alert('請輸入電子信箱')
+					}else{
+						$(".box").css('height','800px');
+
+						var email = $('input[name=email]').val() + '@mail.ntust.edu.tw';
+
+						$.ajax({
+							url: '/api/send',
+							method: 'post',
+							data: { email },
+							success: function(data) {
+								console.log(data.verificationCode);
+								$('#verification-code').val(data.verificationCode);
+							}
+						});
+					}
+				});
+				
+				$("#pbutton").click(function(){
+					$("#PictureInput").trigger("click");
+				});
+				$("#PictureInput").change(function(){
+					readURL(this);
+				});
+				$('#registry-form').submit(function(e) {
+					var hiddenVCode = $('#verification-code').val();
+					var vCode = $('#vcode').val();
+					if($('#emailinput').val()=="" || $('#phoneinput').val()=="" || $('#usernameinput').val()=="" || $('#passwordinput').val()=="" || $('#passwordcomfirm').val()=="" ){
+						alert('請填寫所有欄位')
+					}else{
+						if($('#passwordinput').val()!=$('#passwordcomfirm').val()){
+							alert('輸入的密碼確認與密碼不同')
+						}else{
+							if (hiddenVCode === vCode) {
+								var form = $('form')[0];	
+								$.ajax({
+									method: 'POST', 
+									url: '/api/users',
+									data: $(this).serialize(),
+									success: function() {
+										window.location = '/';
+									},
+									error: function(jqXHR, textStatus, error) {
+										$('#error-message').html(error);
+									}
+								});
+							} else {
+								alert('驗證碼錯誤');
+							}
+						}
+					}
+					
+
+					e.preventDefault();
+				});
+
+
+				function readURL(input){
+					if(input.files && input.files[0]){
+						var reader = new FileReader();
+						reader.onload = function (e) {
+							$("#memberpicture").attr('src', e.target.result);
+						}
+						reader.readAsDataURL(input.files[0]);
+					};
+				};
+			});
+	body
+		input#verification-code(type='text' hidden)
+		form#registry-form.box
+			#signuptitle
+				label#signuptext 會員註冊
+			hr
+			.line
+				label.title(style='margin-left:-355px;') 學校信箱Email-adress:
+				br
+				input#emailinput(type='text', name='email', placeholder='學校信箱Email-adress', style='width:30%; margin-left:-40px;')
+				label(style='font-family:微軟正黑體; font-size:18px; text-align: left; color: #424949;') @mail.ntust.edu.tw
+				input#vbutton(type='button', value='發送驗證碼', style = 'margin-left: 20px')
+			#Vline.line(hidden='')
+				label.title(style='margin-left:-345px;') 驗證碼Verification code:
+				br
+				input#vcode(type='text', placeholder='驗證碼Verification code', style='width:30%; margin-left:-40px;')
+				input#vresend(type='button', value='重新發送', style='margin-left: 190px;')
+			hr(style='margin-top:0px;margin-bottom: 20px;width: 75%;')
+		
+			.line
+				label.title(style='margin-left:-395px;') 用戶名Username:
+				br
+				input#usernameinput(type='text', name='username', placeholder='用戶名Username')
+			.line
+				label.title(style='margin-left:-345px;') 電話號碼Phone Number:
+				br
+				input#phoneinput(type='text', name='phonenumber', placeholder='電話號碼Phone Number')
+			.line
+				label.title(style='margin-left:-425px;') 密碼Password:
+				br
+				input#passwordinput(type='password', name='password', placeholder='密碼Password')
+			.line
+				label.title(style='margin-left:-315px;') 密碼確認PasswordConfirm:
+				br
+				input#passwordcomfirm(type='password', name='confirmedPassword', placeholder='密碼確認PasswordConfirm')
+			br
+			input(type='submit', name='signup', value='註冊')
+			p#error-message

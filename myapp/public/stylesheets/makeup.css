@@ -1,0 +1,181 @@
+@charset "utf-8";
+html,body{
+	margin: 0;
+	height: 100%;
+	padding: 0;
+}
+#wrap {
+	
+	background-color: #EBEDEF;
+}
+#wrap #top {
+    height: 50px;
+	
+}
+#wrap #top #topleft {
+    float: left;
+    width: 15%;
+    height: 50px;
+    background-color: #3498DB;
+    text-align: center;
+	
+	
+}
+#wrap #top #topmiddle {
+    float: left;
+    width: 60%;
+    background-color: #3498DB;
+    height: 50px;
+    text-align: center;
+	line-height: 50px;
+}
+#wrap #top #topmiddleleft {
+	float: left;
+    width: 15%;
+    background-color: #3498DB;
+    height: 50px;
+    text-align: center;
+	line-height: 50px;
+}
+
+#wrap #top #topright {
+    float: right;
+    width: 10%;
+    background-color: #3498DB;
+    height: 50px;
+    text-align: right;
+}
+.sellbutton{
+	background-color:blue;
+	border: none;
+	color:white;
+	text-align: center;
+	cursor: pointer;
+	height: 50px;
+}
+.sellbutton:hover{
+	background-color: #2D56D3;
+}
+
+
+#wrap #down {
+    
+    background-color: #D6CECE;
+}
+#wrap #down #downleft {
+    float: left;
+    width: 15%;
+    height: 885px;
+	background-color: #2D56D3;
+}
+#wrap #down #downright {
+    float: left;
+    width: 85%;
+    height: 100%;
+	
+	
+    
+}
+
+.listitem{
+	background-color: #4d4949;
+}
+.main{
+	background-color: #2D56D3;
+	color: white;
+	font-family: 微軟正黑體;
+	font-weight: bold;
+	font-size: 20px;
+	text-align: center;
+	cursor: pointer;
+	height: 40px;
+	line-height: 40px;
+}
+.main:hover{
+	background-color: #4569D8;
+}
+.sub{
+	margin: 0;
+	background-color: #4d4949;
+	color: white;
+	font-family: 微軟正黑體;
+	font-weight: bold;
+	font-size: 16px;
+	text-align:center;
+	cursor: pointer;
+	line-height: 30px;
+	
+}
+
+.sidelistitem{
+	height: 30px;
+}
+.sidelistitem:hover{
+	background-color: #5C5757;
+}
+
+#sort_selection{
+	padding: 5px;
+	background-color: #E5E7E9;
+	color: black;
+	font-family: 微軟正黑體;
+	height: 50px;
+	margin: 10px;
+	
+	line-height: 50px;
+	
+}
+.sort_button{
+	border: none;
+	background-color: white;
+	font-family: 微軟正黑體;
+	font-size: 16px;
+	height: 30px;
+	width: 100px;
+	cursor: pointer;
+}
+.sort_cost{
+	height: 30px;
+	width: 150px;
+	border: none;
+	font-family: 微軟正黑體;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+
+.post{
+	margin: 5px;
+	padding: 5px;
+	background-color: #E5E7E9;
+	font-family: 微軟正黑體;
+	height:400px;
+	width:250px;
+	display: inline-block;
+	color : black;
+}
+.post:hover{
+	transition: box-shadow .25s;
+	box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.sub a{
+	text-decoration: none;
+	color:inherit;
+}
+
+
+.picturebox{
+    float: left;
+    width:40px;
+    height:40px;
+    overflow: hidden;
+	margin-top:5px;
+	margin-right:5px; 
+}
+.picturebox img{
+    border-radius:50%;
+    object-fit: cover;
+    width:40px;
+    height:40px;
+    
+}

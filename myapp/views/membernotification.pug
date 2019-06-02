@@ -1,0 +1,162 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title 會員中心
+    link(href='stylesheets/member.css', rel='stylesheet', type='text/css')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js')
+    script.
+      $(document).ready(function () {
+        for( i = 0 ; i < $(".postimgpreview").length; i ++){
+          resetp(i);
+        };
+               
+      
+      });
+      function resetp(val){
+        var mtop = (120- $(".postimgpreview:eq(" + val + ")").innerHeight())/2;
+        var mleft = (120- $(".postimgpreview:eq(" + val + ")").innerWidth())/2;
+        if(mtop < 0){
+          mtop = 0;
+        };
+        if(mleft < 0){
+          mleft = 0;
+        };
+        $(".postimgpreview:eq(" + val + ")").css("margin-top", mtop);
+        $(".postimgpreview:eq(" + val + ")").css("margin-left", mleft);
+      };
+  body
+    #upsection
+      .top(style='width:80%; text-align: left; padding-left: 22px')  
+        a(href='/')     
+          label(style='font-size: 32px; cursor: pointer') Tech2Buy會員中心
+      .top(style='width:16%; text-align: right; padding-right: 22px')
+         a(href='/logout')
+          label#logoutbutton(style='cursor:pointer') 登出
+    #downsection
+      #downleft
+        #userinfo(style='height:21%')
+          .picturebox
+            img(src=user.userfileNames[0], style='margin: 10px 10px;')
+          .usernamebox
+            label #{user.username}
+        #optionarea
+          a(href='/memberindex')
+            .optionline(style='cursor:pointer')
+              div(style='float:left')
+                img(src='../images/icons8-user-100.png', width='22px', height='22px')
+              div(style='line-height:23px')
+                label(style='margin-left:10px; cursor:pointer') 我的帳號
+          a(href='/membermarket')
+            .optionline(style='cursor:pointer')
+              div(style='float:left')
+                img(src='../images/icons8-shopping-cart-64.png', width='22px', height='22px')
+              div(style='line-height:23px')
+                label(style='margin-left:10px; cursor:pointer') 我的賣場
+          a(href='/memberlist')
+            .optionline(style='cursor:pointer')
+              div(style='float:left')
+                img(src='../images/icons8-checklist-32.png', width='22px', height='22px')
+              div(style='line-height:23px')
+                label(style='margin-left:10px; cursor:pointer') 我的收藏
+          a(href='/membernotification')
+            .optionline(style='cursor:pointer')
+              div(style='float:left')
+                img(src='../images/icons8-bell-90.png', width='22px', height='22px')
+              div(style='line-height:23px')
+                label(style='margin-left:10px; cursor:pointer') 通知總覽
+          
+          
+      #downright
+        #downrighttitle
+          | 通知總覽
+        hr(style='margin:-10px 20px; margin-bottom: 10px;')
+        .postarea
+          each notification in notifications
+            a(href='/products/' + notification.product._id)
+              .post(style='height:200px')
+                .postimg(style='margin-top: 30px')
+                  img.postimgpreview(src=notification.product.fileNames[0])
+                hr(style='width:0.1px; height:170px; float:left; margin-top:10px;border: 1px solid #3E4242')
+                .textinfo
+                  label(style = 'line-height: 50px; font-family:微軟正黑體 ; margin-left: 10px; font-size: 20px; color: black') 已收到交易請求，祝交易愉快!
+                .buyer(style='margin-top:-10px;float:left')
+                  label(style = 'margin-left: 10px;  line-height: 50px; font-family:微軟正黑體 ; font-size: 20px; color: black') 買家資訊:
+                  div
+                    .picturebox(style='float:left ;margin-right: 10px; width:50px;height:50px')
+                      img(src=notification.buyer.userfileNames[0],style='width:40px; height:40px')
+                    table
+                      tr
+                        td
+                          label(style = 'font-family:微軟正黑體 ; font-weight: bold; font-size: 20px; color: black') #{notification.buyer.username}
+                      tr
+                        td
+                          label(style = 'font-family:微軟正黑體 ; font-size: 20px; color: black') #{notification.buyer.fullemail}
+                      tr
+                        td
+                          label(style = 'font-family:微軟正黑體 ; font-size: 20px; color: black') #{notification.buyer.phonenumber}
+                .merchinfo(style='margin-top:-10px;float:left; margin-left: 30px')
+                  label(style = 'margin-left: 10px;  line-height: 50px; font-family:微軟正黑體 ; font-size: 20px; color: black') 商品資訊:
+                  div
+                    table
+                      tr
+                        td
+                          label(style = 'margin-left:10px; font-family:微軟正黑體 ; font-weight: bold; font-size: 20px; color: black') #{notification.product.productsname}
+                      tr
+                        td
+                          label(style = 'margin-left:10px; font-family:微軟正黑體 ; font-size: 20px; color: black') 購買數量: #{notification.amount}
+                      tr
+                        td
+                          label(style = 'margin-left:10px; font-family:微軟正黑體 ; font-size: 20px; color: black') 單品價格: #{notification.product.price}
+                div(style='float:right')
+                  br
+                  br
+                  label(style='margin-right:20px; margin-top:80px; font-family:微軟正黑體 ; font-weight: bold; font-size: 20px; color: #3498DB')  已售出
+              
+
+
+          each bnotification in boughtnotification
+            a(href='/products/' + bnotification.product._id)
+              .post(style='height:200px')
+                .postimg(style='margin-top: 30px')
+                  img.postimgpreview(src=bnotification.product.fileNames[0])
+                hr(style='width:0.1px; height:170px; float:left; margin-top:10px;border: 1px solid #3E4242')
+                .textinfo
+                  label(style = 'line-height: 50px; font-family:微軟正黑體 ; margin-left: 10px; font-size: 20px; color: black') 已向賣家送出交易請求，祝交易愉快!
+                .buyer(style='margin-top:-10px;float:left')
+                  label(style = 'margin-left: 10px;  line-height: 50px; font-family:微軟正黑體 ; font-size: 20px; color: black') 賣家資訊:
+                  div
+                    .picturebox(style='float:left ;margin-right: 10px; width:50px;height:50px')
+                      img(src=bnotification.userId.userfileNames[0],style='width:40px; height:40px')
+                    table
+                      tr
+                        td
+                          label(style = 'font-family:微軟正黑體 ; font-weight: bold; font-size: 20px; color: black') #{bnotification.userId.username}
+                      tr
+                        td
+                          label(style = 'font-family:微軟正黑體 ; font-size: 20px; color: black') #{bnotification.userId.fullemail}
+                      tr
+                        td
+                          label(style = 'font-family:微軟正黑體 ; font-size: 20px; color: black') #{bnotification.userId.phonenumber}
+                .merchinfo(style='margin-top:-10px;float:left; margin-left: 30px')
+                  label(style = 'margin-left: 10px;  line-height: 50px; font-family:微軟正黑體 ; font-size: 20px; color: black') 商品資訊:
+                  div
+                    table
+                      tr
+                        td
+                          label(style = 'margin-left:10px; font-family:微軟正黑體 ; font-weight: bold; font-size: 20px; color: black') #{bnotification.product.productsname}
+                      tr
+                        td
+                          label(style = 'margin-left:10px; font-family:微軟正黑體 ; font-size: 20px; color: black') 購買數量: #{bnotification.amount}
+                      tr
+                        td
+                          label(style = 'margin-left:10px; font-family:微軟正黑體 ; font-size: 20px; color: black') 單品價格: #{bnotification.product.price}
+                div(style='float:right')
+                  br
+                  br
+                  label(style='margin-right:20px; margin-top:80px; font-family:微軟正黑體 ; font-weight: bold; font-size: 20px; color: #3498DB')  已下單
+              
+              
+        
+        
+

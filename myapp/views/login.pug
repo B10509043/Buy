@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    title 登入
+    link(href='stylesheets/login.css', rel='stylesheet', type='text/css')
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+  body
+    form.box(method='POST' action='/login')
+      #logintitle
+        label#logintext 登入
+      input(type='text', name='email', placeholder='電子信箱Email-adress')
+      br
+      input(type='password', name='password', placeholder='密碼Password')
+      br
+      if error
+        label(style="font-family:微軟正黑體;font-size:20px;color:red") #{error}
+      br
+      input(type='submit', name='login', value='登入')
+      // <input type="submit" name="signup" value="註冊">
+      br
+      br
+      label#signuptext
+        | 還沒有帳號嗎？
+        a#link(href='/register') 點此註冊
+

@@ -1,0 +1,85 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title 會員中心
+    link(href='stylesheets/member.css', rel='stylesheet', type='text/css')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js')
+    script.
+      $(document).ready(function () {
+        for( i = 0 ; i < $(".postimgpreview").length; i ++){
+          resetp(i);
+        };
+               
+      
+      });
+      function resetp(val){
+        var mtop = (120- $(".postimgpreview:eq(" + val + ")").innerHeight())/2;
+        var mleft = (120- $(".postimgpreview:eq(" + val + ")").innerWidth())/2;
+        if(mtop < 0){
+          mtop = 0;
+        };
+        if(mleft < 0){
+          mleft = 0;
+        };
+        $(".postimgpreview:eq(" + val + ")").css("margin-top", mtop);
+        $(".postimgpreview:eq(" + val + ")").css("margin-left", mleft);
+      };
+  body
+    #upsection
+      .top(style='width:80%; text-align: left; padding-left: 22px')
+        a(href='/')
+          label(style='font-size: 32px; cursor: pointer') Tech2Buy會員中心
+      .top(style='width:16%; text-align: right; padding-right: 22px')
+        label#logoutbutton(style='cursor:pointer') 登出
+    #downsection
+      #downleft
+        #userinfo(style='height:21%')
+          .picturebox
+            img(src=user.userfileNames[0], style='margin: 10px 10px;')
+          .usernamebox
+            label #{user.username}
+        #optionarea
+          a(href='/memberindex')
+            .optionline(style='cursor:pointer')
+              div(style='float:left')
+                img(src='../images/icons8-user-100.png', width='22px', height='22px')
+              div(style='line-height:23px')
+                label(style='margin-left:10px; cursor:pointer') 我的帳號
+          a(href='/membermarket')
+            .optionline(style='cursor:pointer')
+              div(style='float:left')
+                img(src='../images/icons8-shopping-cart-64.png', width='22px', height='22px')
+              div(style='line-height:23px')
+                label(style='margin-left:10px; cursor:pointer') 我的賣場
+          a(href='/memberlist')
+            .optionline(style='cursor:pointer')
+              div(style='float:left')
+                img(src='../images/icons8-checklist-32.png', width='22px', height='22px')
+              div(style='line-height:23px')
+                label(style='margin-left:10px; cursor:pointer') 我的收藏
+          a(href='/membernotification')
+            .optionline(style='cursor:pointer')
+              div(style='float:left')
+                img(src='../images/icons8-bell-90.png', width='22px', height='22px')
+              div(style='line-height:23px')
+                label(style='margin-left:10px; cursor:pointer') 通知總覽
+          
+      #downright
+        
+        #downrighttitle
+          | 我的收藏
+        hr(style='margin:-10px 20px; margin-bottom: 10px;')
+        each product in cart.products
+          a(href='/products/' + product._id)
+            .post
+              .postimg
+                img.postimgpreview(src=product.fileNames[0])
+              .postinfo
+                  .postinfo_title(style='text-decoration: none; color:black;') #{product.productsname}
+                  .postinfo_remain(style='text-decoration: none; color:black;') 剩餘數量:#{product.itemquantity}
+                  .postinfo_price(style='text-decoration: none; color:black;') #{product.price}
+              .postbuttons
+                br
+                input.postbuttondel(type='button', value='刪除',style='cursor:pointer')
+

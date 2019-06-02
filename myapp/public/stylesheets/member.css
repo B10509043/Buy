@@ -1,0 +1,210 @@
+@charset "utf-8";
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 微軟正黑體;
+}
+
+#upsection{
+    margin:0;
+    background-color: #21618C;
+    height:10%;
+    width: 100%;
+    -moz-box-shadow:    3px 2px 5px 6px #ccc;
+  	-webkit-box-shadow: 3px 2px 5px 6px #ccc;
+  	box-shadow:         3px 2px 5px 6px #ccc;
+
+}
+#downsection{
+   
+    background-color: white;
+    height: 80%;
+    width: 100%;
+}
+.top{
+    float: left;
+    font-family: 微軟正黑體;
+    color:white;
+    height:10%;
+    line-height: 85px;
+    
+}
+.top a{
+    text-decoration: none;
+    color: white;
+}
+
+#logoutbutton{
+    color: #F4F6F6;
+}
+#logoutbutton:hover{
+    color: #BFC9CA;
+}
+#downleft{
+    float: left;
+    margin: 0;
+    width:25%;
+    height: 100%;
+    background-color:  #F2F4F4;
+}
+.picturebox, .picturebox_change{
+    float: left;
+    width:120px;
+    height:120px;
+    overflow: hidden;
+    
+}
+.picturebox img, .picturebox_change img{
+    border-radius:50%;
+    object-fit: cover;
+    width:100px;
+    height:100px;
+    margin:10px 10px;
+    
+}
+.usernamebox{
+    font-family: 微軟正黑體;
+    font-size: 18px;
+    float: left;
+    text-align: left;
+    margin-left: 30px;
+    line-height: 120px;
+}
+#optionarea{
+    margin-top: 20px;
+    height: 85%;
+    width: 100%;
+    background-color:  #F2F4F4;
+    
+}
+#optionarea a{
+    text-decoration: none;
+    
+}
+
+.optionline{
+    height: 50px;
+    width:100%;
+    margin-left: 20px;
+    font-family: 微軟正黑體;
+    font-size: 18px;
+    color:#3498DB;
+    text-align: left;
+    
+}
+.optionline div{
+    cursor: pointer;
+}
+.optionline div:hover{
+
+    color:rgb(40, 125, 182);
+}
+#downright{
+    
+    float: left;
+    width: 70%;
+    height: 100%;
+}
+#downrighttitle{
+    margin:20px 20px;
+    font-size:32px;
+}
+.formgroup{
+    font-size:20px;
+    height:15px;
+    line-height: 45px;
+    
+}
+.formgroup input{
+    
+    font-size:20px;
+    
+}
+#formbutton{
+    border:1px solid #707B7C;
+    color: #424949;
+    background-color: transparent;
+    width: 80px;
+    height: 50px;
+    font-size:20px;
+    
+    border-radius: 10px;
+}
+#formbutton:hover{
+    background-color: #707B7C;
+    color: white;
+}
+.post{
+    margin-left: 20px;
+	margin-top:10px;
+	background-color: #E5E7E9;
+	font-family: 微軟正黑體;
+	height:150px;
+	width:95%;
+	display: inline-block;
+	color : black;
+}
+.post:hover{
+	transition: box-shadow .25s;
+	box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.postimg{
+    float: left;
+    background-color: white;
+    width: 120px;
+    height: 120px;
+    margin:15px 15px;
+    
+}
+.postimg img{
+    max-width: 120px;
+    max-height: 120px;
+    width: auto;
+    height: auto;
+}
+.postinfo{
+    margin-top:15px;
+    float: left;
+}
+.postinfo_title{
+    font-size: 22px;
+}
+.postbuttons{
+    margin-top: 20px;
+    float: right;
+    
+}
+.postbuttons input{
+    margin:10px 10px;
+    border: none;
+    background-color: transparent;
+    font-family: 微軟正黑體;
+    font-size: 20px;
+}
+.postbuttonedit{
+    color: #3498DB;
+}
+.postbuttonedit:hover{
+    color:rgb(40, 125, 182);
+}
+.postbuttondel{
+    color: #CB4335;
+}
+.postbuttondel:hover{
+    color: #B03A2E;
+}
+
+#Pictureinputbutton, #passwordchange{
+    border-radius: 10px; 
+    border:1px solid #717D7E; 
+    font-family:微軟正黑體; 
+    font-size:18px; 
+    width:100px;
+    height:30px;
+    background-color:transparent
+}
+#Pictureinputbutton:hover,  #passwordchange:hover{
+    background-color: #707B7C;
+    color: white;
+}

@@ -1,0 +1,353 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title #{product.productsname}
+    link(href='/stylesheets/market.css', rel='stylesheet', type='text/css')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js')
+    script.
+      $(document).ready(function () {
+        for (i = 0; i < $(".slide_img").length; i++) {
+          let slide = $('#slide_img' + i)
+          var marginTop = (500 - slide.innerHeight()) / 2
+          if(marginTop < 0){
+          marginTop = 0;
+          }
+          if(marginLeft < 0){
+          marginLeft = 0;
+          }
+          var marginLeft = (410-slide.innerWidth()) / 2
+          slide.find('img').css("margin-top", marginTop);
+          slide.find('img').css("margin-left", marginLeft);
+        }
+        
+         
+        $('#purchasebutton').click(function(e) {
+          if($('.loginstatus').attr('id') === 'undefined'){
+            alert('請先登入')
+            window.location = '/login';
+          }else{
+            var sellerid = $('input[name=seller_id]').val();
+            var reduceitemquantity = $('input[name=reduceitemquantity]').val();
+            var good_id = $('input[name=good_id]').val();
+            var orgitemquantity = $('input[name=orgitemquantity]').val();
+            $.ajax({
+              method: 'POST', 
+              url: '/api/updatequantity',
+              data: { sellerid,reduceitemquantity,good_id,orgitemquantity },
+              success: function() {
+                window.location = '/';
+                console.log(good_id)
+                console.log(reduceitemquantity)
+                console.log(orgitemquantity)
+                alert("購買成功")
+              },
+              error: function(jqXHR, textStatus, error) {
+                $('#error-message').html(error);
+                console.log(error)
+                alert("購買失敗")
+              }
+              
+            });
+          }
+          
+        
+          e.preventDefault();
+        });
+        $('#cartbutton').click(function(e) {
+          if($('.loginstatus').attr('id') === 'undefined'){
+            alert('請先登入')
+            window.location = '/login';
+          }else{
+            console.log('...................')
+            var productId = $('input[name=good_id]').val();
+            console.log(productId)
+            $.ajax({
+              method: 'POST', 
+              url: '/api/cart',
+              data: {productId},
+              success: function() {
+                window.location = '/';
+                console.log(productId)
+
+                alert("添加成功")
+                
+              },
+              error: function(jqXHR, textStatus, error) {
+                $('#error-message').html(error);
+                console.log(error)
+                alert("添加失敗")
+              }
+              
+            });
+          }
+          e.preventDefault();
+        });
+       
+        $("#commentform").submit(function(e){
+          if($('.loginstatus').attr('id') === 'undefined'){
+            alert('請先登入')
+            window.location = '/login';
+          }else{
+            var form = $('form')[0];
+            $.ajax({
+              method:'POST',
+              url:'/api/comment',
+              data: $(this).serialize(),
+              success: function(){
+                console.log('success')
+              },
+              error:function(jqXHR, textStatus, error){
+                $('#error-message').html(error);
+              }
+            });
+          }
+
+        });
+        
+        
+      });
+  body
+    // 上標
+    #wrap
+      #top
+        #topleft
+          div(style="float:inherit; margin-left:50px")
+            img(src='/images/logo_white.png' width='40px' height='40px' style='margin-top:5px')
+          div
+            a(href='/', style='margin-left:-40px; text-decoration: none; font-size: 20px; font-family: Arial, Helvetica, sans-serif; color: white;line-height: 50px') Tech2Buy
+        #topmiddle
+        #topmiddleleft
+          a(href='/sell')
+            input.sellbutton(type='button', value='賣東西', align='absmiddle', style='width:80px;')
+        #topright
+          a(href='/login', target='_self')          
+            if(user === undefined)
+              label.loginstatus(id = 'undefined', hidden)
+              img(src='/images/membericon_white.png', width='40', height='40',style='margin-top:5px; margin-right:5px')
+            else
+              label.loginstatus(id = user.username, hidden)
+              .picturebox(style='float:right')
+                img(src=user.userfileNames[0])
+      // 上標
+      // 內容
+      #down
+        #mercharea
+          // 圖片區
+          #merchphoto
+            #imgslide
+              input#i1(type='radio', name='images', checked='')
+              input#i2(type='radio', name='images')
+              input#i3(type='radio', name='images')
+              input#i4(type='radio', name='images')
+              #slide_img0.slide_img
+                img(src=product.fileNames[0])
+                label.pre(for='i4')
+                  span
+                label.nxt(for='i2')
+                  span
+              #slide_img1.slide_img
+                img(src=product.fileNames[1])
+                label.pre(for='i1')
+                  span
+                label.nxt(for='i3')
+                  span
+              #slide_img2.slide_img
+                img(src=product.fileNames[2])
+                label.pre(for='i2')
+                  span
+                label.nxt(for='i4')
+                  span
+              #slide_img3.slide_img
+                img(src=product.fileNames[3])
+                label.pre(for='i3')
+                  span
+                label.nxt(for='i1')
+                  span
+              .nav_slide
+                label#dot1.dots(for='i1')
+                label#dot2.dots(for='i2')
+                label#dot3.dots(for='i3')
+                label#dot4.dots(for='i4')
+          // 
+          // 商品相關資訊
+          #merchinfo(style='float:left')
+            #seller(style='width:585px')
+              .picturebox(style='float:left ;margin-right: 10px; margin-top:0px')
+                img(src=product.user.userfileNames[0], width='40', height='40')
+                label.sellerid(id = product.user._id, hidden)
+              div(style='float:left; margin-top: -5px')
+                div
+                  label(style='font-family:微軟正黑體 ; font-weight: bold; font-size: 17px') #{product.user.username}
+                label#sellerposttime(style='font-family:微軟正黑體 ; font-weight: bold; font-size: 16px ; color: #566573') #{product.createdate}
+            
+              
+            hr(style='margin-top: -5px')
+            #item
+              div
+                label(style='font-family:微軟正黑體 ; font-size: 30px') #{product.productsname}
+              div(style='background-color: #D7DBDD; color:#2E86C1;margin-top: 10px')
+                label(style='font-family:微軟正黑體 ; font-weight: bold; font-size: 30px') NT #{product.price}
+                br
+              .itemstatusline
+                div(style='float:left')
+                  img(src='/images/icons8-product-50.png')
+                label#used_or_new #{product.type}
+              .itemstatusline
+                div(style='float:left')
+                  img(src='/images/icons8-transaction-list-64.png')
+                if(product.sort =='教科書籍')
+                  a(href='/book_Textbook')
+                    label.sorttext(id = product.sort) #{product.sort}
+                  if(product.subtype =='資訊管理系')
+                    a(href = '/book_MIS')
+                      label#subtypetext() #{product.subtype}
+                  if(product.subtype =='工業管理系')
+                    a(href = '/book_IM')
+                      label#subtypetext() #{product.subtype}
+                  if(product.subtype =='企業管理系')
+                    a(href = '/book_BM')
+                      label#subtypetext() #{product.subtype}
+                  if(product.subtype =='管理不分系')
+                    a(href = '/book_M')
+                      label#subtypetext() #{product.subtype}
+                  if(product.subtype =='商業設計系')
+                    a(href = '/book_CD')
+                      label#subtypetext() #{product.subtype}
+                  if(product.subtype =='工業設計系')
+                    a(href = '/book_ID')
+                      label#subtypetext() #{product.subtype}
+                  if(product.subtype =='機械工程系')
+                    a(href = '/book_ME')
+                      label#subtypetext() #{product.subtype}
+                  if(product.subtype =='電子工程系')
+                    a(href = '/book_EM')
+                      label#subtypetext() #{product.subtype}
+                  if(product.subtype =='資訊工程系')
+                    a(href = '/book_IE')
+                      label#subtypetext() #{product.subtype}
+                  if(product.subtype =='應用外語系')
+                    a(href = '/book_AFL')
+                      label#subtypetext() #{product.subtype}
+                  
+                if(product.sort =='影視光碟')
+                  a(href='/book_Disk')
+                    label.sorttext(id = product.sort) #{product.sort}
+                    
+                    label#subtypetext(hidden) #{product.subtype}
+                if(product.sort =='其他書籍')
+                  a(href='/book_Otherbook')
+                    label.sorttext(id = product.sort) #{product.sort}
+                    
+                    label#subtypetext(hidden) #{product.subtype}
+                if(product.sort =='音樂相關')
+                  a(href='/book_Music')
+                    label.sorttext(id = product.sort) #{product.sort}
+                    
+                    label#subtypetext(hidden) #{product.subtype}
+                if(product.sort =='男裝男鞋')
+                  a(href='/clothing_Maleclothing')
+                    label.sorttext(id = product.sort) #{product.sort}
+                    
+                    label#subtypetext(hidden) #{product.subtype}
+                if(product.sort =='女裝女鞋')
+                  a(href='/clothing_Femaleclothing')
+                    label.sorttext(id = product.sort) #{product.sort}
+                    
+                    label#subtypetext(hidden) #{product.subtype}
+                if(product.sort =='飾品配件')
+                  a(href='/clothing_Decorations')
+                    label.sorttext(id = product.sort) #{product.sort}
+                    
+                    label#subtypetext(hidden) #{product.subtype}
+                if(product.sort =='攝影用品')
+                  a(href='/elctronic_Photographing')
+                    label.sorttext(id = product.sort) #{product.sort}
+                    
+                    label#subtypetext(hidden) #{product.subtype}
+                if(product.sort =='行動裝置')
+                  a(href='/elctronic_Mobile')
+                    label.sorttext(id = product.sort) #{product.sort}
+                    
+                    label#subtypetext(hidden) #{product.subtype}
+                if(product.sort =='電腦周邊')
+                  a(href='/elctronic_Computer')
+                    label.sorttext(id = product.sort) #{product.sort}
+                    
+                    label#subtypetext(hidden) #{product.subtype}
+                if(product.sort =='日常用品')
+                  a(href='/life_daily')
+                    label.sorttext(id = product.sort) #{product.sort}
+                    
+                    label#subtypetext(hidden) #{product.subtype}
+                if(product.sort =='飲食生活')
+                  a(href='/life_food')
+                    label.sorttext(id = product.sort) #{product.sort}
+                    
+                    label#subtypetext(hidden) #{product.subtype}
+                if(product.sort =='美妝保養')
+                  a(href='/makeup_makeup')
+                    label.sorttext(id = product.sort) #{product.sort}
+                    
+                    label#subtypetext(hidden) #{product.subtype}
+                if(product.sort =='租屋專區')
+                  a(href='/houserent_houserent')
+                    label.sorttext(id = product.sort) #{product.sort}
+                    
+                    label#subtypetext(hidden) #{product.subtype}
+                if(product.sort =='其他雜項')
+                  a(href='/others_others')
+                    label.sorttext(id = product.sort) #{product.sort}
+                    
+                    label#subtypetext(hidden) #{product.subtype}
+                
+
+                
+                  
+              hr
+              div(style='width:100%; margin-bottom: 5px; height:150px')
+                label(style='font-family:微軟正黑體;font-size:20px;font-weight: bold') 商品資訊
+                br
+                label(style='font-family:微軟正黑體 ; font-size: 16px; color: #333435')
+                  | #{product.iteminfotextarea}
+              div(style='margin-top:10px')
+                label(style='font-family:微軟正黑體 ; font-size: 20px') 剩餘數量 #{product.itemquantity}
+              #buttondiv 
+                input#cartbutton(type='button' value='加到收藏')
+                input#purchasebutton(type='button' value='立即購買')
+                input.iteminfo_input(type='text',name='seller_id' ,value= product.user._id,hidden='hidden')
+                input(name='reduceitemquantity',type='number', min='1' , max=product.itemquantity,value = 1)
+                input.iteminfo_input(type='text',name='good_id' ,value= product._id,hidden='hidden')
+                input.orgitemquantity(type='number',name='orgitemquantity' ,value= product.itemquantity ,hidden='hidden') 
+          // 
+          // 內容
+          // 留言區
+          #commentarea
+            div(style='padding-top: 5px; background-color:white; display:inline-block; height:200px; width:1063px; margin-left:-160px')
+              label(style='font-family:微軟正黑體;font-size:24px;font-weight: bold; margin-top: 20px; margin-left: 10px; color:#707B7C') 公開留言
+              form#commentform(style='margin-left: 10px;')
+                input.iteminfo_input(type='text',name='good_id' value= product._id,hidden='hidden')
+                br
+                textarea(name='commenttextarea', style='font-size: 16px; font-family:微軟正黑體; width:98%; height: 80px; resize: none',placeholder='留下你的意見')
+                br
+                input(type="submit")
+                
+          // 
+          
+          #commentpostsection(style='padding:10px 20px')
+            each comment in comments
+              .commentpost(style='height:70px; width:auto; margin-top:10px')
+                .picturebox(style='float:left ;margin-right: 10px; width:55px;height:55px')
+                  img(src=comment.user.userfileNames[0],style='width:55px; height:55px')
+                div(style='float:left; margin-top: -5px')
+                  div
+                    span(style = 'font-family:微軟正黑體 ; font-weight: bold; font-size: 17px; color: black') #{comment.user.username}
+                    label(style='font-family:微軟正黑體 ;margin-left: 20px; font-weight: bold; font-size: 17px; color: #566573') #{comment.createtime}
+                  input(type='button',value=comment.comment, style='font-family:微軟正黑體 ; font-size: 20px; border:none;margin-left:0px;padding-left:10px; padding-right:10px; float:left; line-height: 50px;background-color:#D5DBDB; border-radius: 15px;width:auto')
+              
+            
+                
+          
+                
+            
+          

@@ -1,0 +1,140 @@
+@charset "utf-8";
+html,body{
+	margin: 0;
+	height: 100%;
+	padding: 0;
+}
+#wrap {
+    
+    background-color: #EBEDEF;
+}
+#wrap #top {
+    height: 50px;
+	background-color: #005792;
+	-moz-box-shadow:    3px 1px 5px 6px #ccc;
+  	-webkit-box-shadow: 3px 1px 5px 6px #ccc;
+  	box-shadow:         3px 1px 5px 6px #ccc;
+}
+#wrap #top #topleft {
+    float: left;
+    width: 15%;
+    height: 50px;
+    background-color: transparent;
+    text-align: center;
+	
+	
+}
+#wrap #top #topmiddle {
+    float: left;
+    width: 60%;
+    background-color: transparent;
+    height: 50px;
+    text-align: center;
+	line-height: 50px;
+}
+#wrap #top #topmiddleleft {
+	float: left;
+    width: 15%;
+    background-color: transparent;
+    height: 50px;
+    text-align: center;
+	line-height: 50px;
+}
+
+#wrap #top #topright {
+    float: right;
+    width: 10%;
+    background-color: transparent;
+    height: 50px;
+    text-align: right;
+}
+
+.sellbutton{
+	border-radius: 10px;
+	background-color: white;
+	border: none;
+	color: #408ab4;
+	text-align: center;
+	cursor: pointer;
+	height: 35px;
+}
+.sellbutton:hover{
+	background-color: #408ab4;
+	color:white;
+}
+
+#formarea{
+    margin-left: 285px;
+    display: inline-block;
+    margin-top: 25px;
+    
+    height:790px;
+    width:70%;
+    background-color: white;
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+#PictureInput{
+    border: none;
+    background-color: #2D56D3;
+}
+#preview_PictureInput_imgs{
+    margin-top:10px;
+    
+}
+.imgs{
+    float: left;
+    margin-left:20px;
+    width:200px;
+    height:200px;
+    border: 2px solid black;
+    
+    
+}
+.custom_picture_buttons{
+    margin-top: 25%;
+    margin-left: 25%;
+}
+.uploadpictures, .custom_picture_buttons{
+    max-width: 190px;
+    max-height: 190px;
+    width: auto;
+    height: auto;
+}
+
+.listtitle{
+    background-color: #A6ACAF;
+    color: #2874A6;
+}
+.iteminfo_inputtitle{
+    font-family: 微軟正黑體;
+    font-size: 17px;
+    line-height: 20px;
+}
+#uploadbutton{
+    border:none; 
+    font-family:微軟正黑體; 
+    width: 80px; 
+    height: 50px; 
+    color: white;
+    background-color:#005792
+}
+#uploadbutton:hover{
+    background-color:rgb(34, 100, 145)
+}
+
+
+.picturebox{
+    float: left;
+    width:40px;
+    height:40px;
+    overflow: hidden;
+	margin-top:5px;
+	margin-right:5px; 
+}
+.picturebox img{
+    border-radius:50%;
+    object-fit: cover;
+    width:40px;
+    height:40px;
+    
+}
